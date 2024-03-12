@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function () {
     return 'Hello TP7';
 });
+
 Route::get('/', function () {
     return view('welcome');
 });
