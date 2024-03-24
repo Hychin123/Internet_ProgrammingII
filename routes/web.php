@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::controller(HomeController::class)->group(function(){
+    Route::get('/',"renderHome")            ->name("home");
+    Route::get('/product/add',"add")        ->name("product.goToCreate");
+    Route::get('/product/edit/{id}',"edit") ->name("product.goToEdit");
+    Route::post('/product/store',"store")   ->name("product.create");
 });
 
 require __DIR__.'/auth.php';
