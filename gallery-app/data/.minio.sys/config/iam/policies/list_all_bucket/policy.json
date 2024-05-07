@@ -1,0 +1,1 @@
+{"Version":1,"Policy":{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Action":["s3:ListAllMyBuckets"],"Resource":["arn:aws:s3:::*"]}]},"CreateDate":"2024-03-27T01:46:37.36Z","UpdateDate":"2024-03-27T01:47:16.48Z"}
