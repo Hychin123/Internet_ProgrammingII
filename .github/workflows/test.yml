@@ -1,29 +1,59 @@
-name: Build and Test
+name: Laravel CI
 
-on:
+on: 
   push:
+    branches: 
+      - main
+  pull_request:
     branches:
-      - main  # Trigger the workflow on pushes to the main branch
-      - 'feature/*'  # Trigger the workflow on pushes to feature branches
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: laravel
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+        options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+        ports:
+          - 3306:3306
+          
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'  # Use the Node.js version you need
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: mbstring, pdo, pdo_mysql
+          ini-values: post_max_size=256M, upload_max_filesize=256M
+          coverage: xdebug
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --ansi
 
-    - name: Run build
-      run: npm run build
+      - name: Copy .env.example to .env
+        run: cp .env.example .env
 
-    - name: Run tests
-      run: npm test
+      - name: Generate Laravel application key
+        run: php artisan key:generate
+
+      - name: Create a database
+        run: |
+          sudo mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS laravel;"
+          sudo mysql -u root -proot -e "CREATE USER 'user'@'%' IDENTIFIED BY 'password';"
+          sudo mysql -u root -proot -e "GRANT ALL PRIVILEGES ON laravel.* TO 'user'@'%';"
+          sudo mysql -u root -proot -e "FLUSH PRIVILEGES;"
+
+      - name: Run database migrations
+        run: php artisan migrate --force
+
+      - name: Run tests
+        run: php artisan test
