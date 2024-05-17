@@ -17,14 +17,17 @@
             </div>
 
             <div style="display: flex">
+
                 <div style="width:50%; padding-right:9%" >
                     <label for="pricing" class="form-label" style="width:20%; padding-right:12%">Price :</label>
                     <input type="number" class="form-control" id="pricing" name="pricing" min="1" style="width:50%" >
                 </div>
+
                 <div style="width:40%; margin-left:3%;">
                     <label for="promotion" class="form-label" style="width:15%; padding-right:5%">Promotion :</label>
                     <input type="number" class="form-control" id="promotion" name="promotion"  >
                 </div>
+                
             </div>
 
             <div>

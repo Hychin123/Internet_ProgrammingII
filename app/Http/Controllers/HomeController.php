@@ -31,9 +31,13 @@ class HomeController extends Controller
         $product->pricing            = $request->pricing;
         $product->discount_pricing   = $request->promotion;
         $product->description        = $request->description;
+        // Generate random values for range and weight
+        $product->rating             = rand(1, 5); // Random number between 100 and 500
+        $product->weight             = rand(100, 500); // Random number between 100 and 500
 
         if($request->image){
-            $store_image = $request->file('image')
+            $store_image = $request
+                            ->file('image')
                             ->storeAs(
                                 'public/static/product', $request->image->getClientOriginalName()
                             );

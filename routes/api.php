@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,3 +22,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::put('/users/{id}', 'ProfileController@update');
 Route::delete('/users/{id}', 'ProfileController@destroy');
 
+Route::middleware(['auth:api'])->group(function(){
+
+    Route::controller(CategoryController::class)->group(function(){
+        Route::get('/categories'                ,"getCategories");
+        Route::post('/category'                 ,"createCategory");
+        Route::get('/category/{categoryId}'     ,"getCategory");
+        Route::post('/category/{categoryId}'    ,"updateCategory");
+        Route::delete('/category/{categoryId}'  ,"deleteCategory");
+    });
+
+    Route::controller(ProductController::class)->group(function(){
+        Route::get('/products'                  ,"getProducts");
+        Route::post('/product'                  ,"createProduct");
+        Route::get('/product/{productId}'       ,"getProduct");
+        Route::post('/product/{productId}'      ,"updateProduct");
+        Route::delete('/product/{productId}'    ,"deleteProduct");
+    });
+
+});

@@ -20,7 +20,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => "Cake-Milk",
                 // 'image' => 'static/category/photo_1.png',
-                'image' => '/photo_1.png',
+                'image' => 'photo_1.png',
                 'color' => "#F2FCE4",
                 'created_at' => now(),
                 'updated_at' => now()

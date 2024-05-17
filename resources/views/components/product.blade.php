@@ -6,8 +6,6 @@
             <div class="image">
                     <img class="img" src="{{asset($img_path)}}" > 
 
-
-
                 @if($tag === ' ')
                     <div class="tag" style="padding: 0;">
                         {{ $tag }}
@@ -36,6 +34,8 @@
             <div class="">
                 <div class="category">{{ $category }}</div>
                 <div class="title">{{ $title }}</div>
+
+                {{-- star range --}}
                 <div class="rating">
 
                     @for($i=0; $i<$rating; $i++ )
@@ -46,6 +46,7 @@
                     @endfor
                         <span class="rating_num">({{ $rating}})</span>
                 </div>
+
                 <div class="description">{{ $weight }} grams</div>
             </div>
 
@@ -84,7 +85,7 @@
         justify-content: center;
         position: relative;
         height: 50%;
-        padding-top: 10px;
+        padding-top: 5px;
 
     }
     .products .image img{
@@ -123,37 +124,42 @@
         justify-content: space-between;
     }
     .products .content .price .allPrice{
-        width: 60px;
+        width: 70px;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
     .products .content .category{
-        font-size: 14px;
+        font-size: 18px;
         font-weight: 400;
         color: #7E7E7E;
     }
     .products .content .rating{
-        display: flex;
+
+        margin-top: 10px;
+        /* display: flex;
         align-items: center;
         justify-content: start;
         margin-top: 10px;
+        background-color: #3BB77E; */
+        
     }
     .products .content .rating .rating{
         color: #FDC040;
     }
     .products .content .rating .unrating{
         color: #CDCDCD;
+        align-items: center;
     }
     .products .content .rating .rating_num{
         padding-left: 10px ;
         color: #7E7E7E;
     }
     .products .content .description,.sellprice{
-        font-size: 12px;
+        font-size: 16px;
         font-weight: 400;
         color: #7E7E7E;
-        margin-top: 10px;
+        margin-top: 5px;
     }
     .products .content .discountPrice{
         font-size: 20px;

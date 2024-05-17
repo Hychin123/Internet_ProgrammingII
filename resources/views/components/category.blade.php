@@ -6,9 +6,8 @@
         <img src="{{ asset($img_path) }}" alt="" />
     </div>
     <div class="content">
-        <div class="name">{{$name}}</div>
+        <div class="name"> {{$name}}</div>
         <div class="num_item">{{$n_of_products}} items</div>
-
     </div>
 
 </div>
