@@ -139,9 +139,19 @@ class TasksController extends Controller
         $this->validate($request, $this->rules);
 
         $task = Task::findOrFail($id);
+
+        $check = $request->input('completed');
+        if($request->input('completed') === null){
+            $check = 0;
+        }
+
+        if($check !== $task->completed){
+            $task->completed = $check;
+        }
+
         $task->name = $request->input('name');
         $task->description = $request->input('description');
-        $task->completed = $request->input('completed');
+
         $task->save();
 
         return redirect('tasks')->with('success', 'Task Updated');

@@ -1,7 +1,7 @@
 @if (Session::has('success'))
     <div class="flash alert alert-success" role="alert">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <p>{{ Session::get('success') }}</p>
+        <h5 style="display: inline-flex">{{ Session::get('success') }}</h5>
     </div>
 @endif
 

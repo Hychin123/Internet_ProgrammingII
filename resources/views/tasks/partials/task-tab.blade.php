@@ -4,7 +4,7 @@
     </h1>
 
     <div class="table-responsive">
-        <table class="table table-striped task-table table-condensed">
+        <table class="table table-striped task-table table-condensed" id="taskTable">
             <thead>
                 <th>ID</th>
                 <th>Name</th>

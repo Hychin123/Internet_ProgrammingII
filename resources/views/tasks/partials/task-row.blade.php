@@ -16,7 +16,7 @@
     </td>
 
     <!-- Task Status -->
-    <td>
+    <td class="status">
 
         @if ($task->completed === 1)
 
