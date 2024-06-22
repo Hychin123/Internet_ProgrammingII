@@ -13,6 +13,7 @@ use App\Http\Controllers\AudienceController;
 Route::group(['prefix'=>'author'],function(){
     
     Route::post('/create', [AuthorController::class, 'create']);
+    Route::post('/getAuthor', [AuthorController::class, 'getByAuthor']);
 });
 
 Route::group(['prefix'=>'audience'],function(){
@@ -36,6 +37,8 @@ Route::group(['prefix'=>'comment'],function(){
         Route::post('/toAuthor','addCommentToAuthor');
         Route::post('/toArticle','addCommentToArticle');
         Route::get('/getByAudience','allCommentsOfAudience');
+        Route::get('/getByArticle','allCommentsOfArticle');
+        Route::get('/getByAuthor','allCommentsOfAuthor');
         Route::get('/getWithTopic','allCommentsWithTopic');
     });
 });

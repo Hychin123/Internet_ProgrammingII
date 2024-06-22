@@ -51,11 +51,12 @@ class ArticleController extends Controller
         ->select('id','name','user_id')
         ->where('name', $request->author_name)
         ->first();
-
-        return response()->json([
-            'author'         => $author,
-            'message'        => "All articles of author '".$request->author_name
-        ], Response::HTTP_OK);
+        
+        return $author->articles;
+        // return response()->json([
+        //     'author'         => $author,
+        //     'message'        => "All articles of author '".$request->author_name
+        // ], Response::HTTP_OK);
 
 
     }

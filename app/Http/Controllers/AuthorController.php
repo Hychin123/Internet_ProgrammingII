@@ -50,20 +50,30 @@ class AuthorController extends Controller
             ]
         );
 
-        $author = Author::where('name', $request->author_name)->first();
+        // if ($request->has('author_name') && !empty($request->author_name)) {
+        //     $authors = Author::where('name', $request->author_name)->get();
+        // } else {
+        //     $authors = Author::all();
+        // }
+        $authors = Author::all();
+    
+        return response()->json($authors);
 
-        if (!$author) {
-            return response()->json([
-                'message' => "Author not found."
-            ], Response::HTTP_NOT_FOUND);
-        }
+        // $author = Author::where('name', $request->author_name)->first();
+        // return $author;
 
-        $articles = Article::with(['author'])->where('author_id', $author->id)->orderBy('id', "DESC")->get();
+        // if (!$author) {
+        //     return response()->json([
+        //         'message' => "Author not found."
+        //     ], Response::HTTP_NOT_FOUND);
+        // }
 
-        return response()->json([
-            'articles' => $articles,
-            'message' => count($articles) . " articles found for author '" . $author->name . "'."
-        ], Response::HTTP_OK);
+        // $articles = Article::with(['author'])->where('author_id', $author->id)->orderBy('id', "DESC")->get();
+
+        // return response()->json([
+        //     'articles' => $articles,
+        //     'message' => count($articles) . " articles found for author '" . $author->name . "'."
+        // ], Response::HTTP_OK);
     }
 
 

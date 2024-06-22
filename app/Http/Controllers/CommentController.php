@@ -178,17 +178,76 @@ class CommentController extends Controller
                 'audience_name'        => 'required'
             ]
         );
+        $comment = [];
 
         $audience = Audience::with('comments')
-        ->select('id','name','article_id','user_id')
-        ->where('name',$request->audience_name)
-        ->get();
+        ->where('name',$request->audience_name)->first();
+        //$audience = Audience::select('id')
+        //->select('id','name','article_id','user_id');
+        // ->get();
+        // $comment = Comment::with('commentable')
+        // ->where('commentable_type', Audience::class)
+        // ->where('commentable_id', $audience->id)
+        // ->get();
 
+        //dd($audience->comments->toArray());
+        $comment = $audience->comments->toArray();
 
-        return response()->json([
-            'Audience'         => $audience,
-            'message'        => "all comment of audience '".$request->audience_name
-        ], Response::HTTP_OK);
+        return response()->json(
+            $comment
+            // 'Audience'         => $audience,
+            // 'message'        => "all comment of audience '".$request->audience_name
+        , Response::HTTP_OK);
+
+    }
+
+    public function allCommentsOfArticle(Request $request){
+        $request->validate(
+            [
+                'article_name'        => 'required'
+            ]
+        );
+
+        $comment = [];
+        $article = Article::with('comments')
+        // ->select('id','name','author_id')
+        ->where('name', $request->article_name)
+        ->first();
+        // ->get();
+
+        $comment = $article->comments->toArray();
+
+        return response()->json(
+            $comment
+            // 'Article'         => $article,
+            // 'message'        => "all comment of audience '".$request->article_name
+        , Response::HTTP_OK);
+
+    }
+
+    public function allCommentsOfAuthor(Request $request){
+        $request->validate(
+            [
+                'author_name'        => 'required'
+            ]
+        );
+
+        $comment = [];
+
+        $author= Author::with('comments')
+        //->select('id','name','user_id')
+        ->where('name',$request->author_name)  // catch the name of request that you want 
+        ->first();
+
+        $comment = $author->comments->toArray();
+
+        return response()->json(
+            $comment
+        , Response::HTTP_OK);
+        // return response()->json([
+        //     'Author'         => $author,
+        //     'message'        => "all comment of audience '".$request->author_name
+        // ], Response::HTTP_OK);
 
     }
 

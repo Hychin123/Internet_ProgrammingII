@@ -44,8 +44,6 @@ class AudienceController extends Controller
         $audience->article_id = $articleId->id;
         $audience->save();
 
-
-
         $audience = Audience::with(['user'])
         ->where('user_id', $audience->user_id)
         ->orderBy('id', 'desc')
@@ -58,6 +56,7 @@ class AudienceController extends Controller
     }
 
     public function allAudiencesOfArticle(Request $request){
+
         $request->validate(
             [
                 'article_name'        => 'required'
@@ -65,14 +64,17 @@ class AudienceController extends Controller
         );
 
         $article = Article::with(['Audiences'])
-        ->select('id','name','author_id')
+        //->select('id','name','author_id')
         ->where('name', $request->article_name)
         ->first();
 
-        return response()->json([
-            'article'         => $article,
-            'message'        => "all audiences of article '".$request->article_name
-        ], Response::HTTP_OK);
+        return $article -> Audiences;
+
+        // return response()->json([
+        //     'article'         => $article,
+            
+        //     'message'        => "all audiences of article '".$request->article_name
+        // ], Response::HTTP_OK);
 
     }
 
@@ -88,10 +90,12 @@ class AudienceController extends Controller
         ->where('name', $request->author_name)
         ->first();
 
-        return response()->json([
-            'author'         => $author,
-            'message'        => "all audiences of author ".$request->author_name
-        ], Response::HTTP_OK);
+        return $author -> audiences;
+
+        // return response()->json([
+        //     'author'         => $author,
+        //     'message'        => "all audiences of author ".$request->author_name
+        // ], Response::HTTP_OK);
 
     }
 
